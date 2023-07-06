@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+.cntfrm{
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    top: 30%;
+    width: 100%;
+}
+
+.cardcontact {
+    background: linear-gradient(to bottom, var(--gradient-trans), var(--card-color));
+    border: 1px solid var(--card-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text-color);
+  }
+  
+  .form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .groupcontact {
+    position: relative;
+  }
+  
+  .form .groupcontact label {
+    font-size: 14px;
+    color: var(--text-color);
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background-color: transparent;
+    transition: all .3s ease;
+  }
+  
+  .form .groupcontact input,
+  .form .groupcontact textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    outline: 0;
+    width: 100%;
+    background-color: transparent;
+  }
+
+  .form .groupcontact input{
+    color: var(--text-color);
+  }
+  
+  .form .groupcontact input:placeholder-shown+ label, .form .groupcontact textarea:placeholder-shown +label {
+    top: 10px;
+    background-color: transparent;
+  }
+  
+  .form .group input:focus,
+  .form .group textarea:focus {
+    border-color: var(--text-color);
+  }
+  
+  .form .groupcontact input:focus+ label, .form .groupcontact textarea:focus +label {
+    top: -10px;
+    left: 10px;
+    background-color: transparent;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .form .groupcontact textarea {
+    resize: none;
+    height: 100px;
+    color: var(--text-color);
+  }
+  
+  .form .btnsbt {
+    background-color: var(--body-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .form .btnsbt:hover {
+    background-color: #27408b;
+  }
+  
+  a{
+ 	width: 35vw;
+  }
+  
