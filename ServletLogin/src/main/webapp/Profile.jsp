@@ -39,31 +39,52 @@
   </head>
   <body>
   
-  	<%@page import="controller.CourseDAO,model.Course"%>
-
-        <%
-            String id = request.getParameter("id");
-            Course a = CourseDAO.getRecordById(Integer.valueOf(id));
-        %>
- 
+  	<%@page import="java.sql.*,DB.DBcon"%>
+  
+  	<%!
+  	static Connection conn;
+    static PreparedStatement ps;
+    static ResultSet rs;
+    static String sql;
+  	%>
+  	
+  	
   
   	<%
-  	if(session.getAttribute("role")=="user"){
-			response.sendRedirect("./Logcss.jsp");
-		}
-  	
 	String showlogout = "none";
-	String showprofile = "none";
-	String Title = "";
-	String showlogin= "block";
-	if (session.getAttribute("Title")!=null){
-		Title = (String) session.getAttribute("Title");
-		showlogout = "block";
-		showlogin = "none";
-		showprofile = "block";
-	}
+String showprofile = "none";
+String Title = "";
+String showlogin= "block";
+if (session.getAttribute("Title")!=null){
+	Title = (String) session.getAttribute("Title");
+	showlogout = "block";
+	showlogin = "none";
+	showprofile = "block";
+}
 		
 	%>
+  	
+  	<% 
+		try {
+			String k = (String)session.getAttribute("uName");
+		          conn = new DBcon().setConnection();
+		          ps = conn.prepareStatement("select * from hololearn.account where accname=?");
+		          ps.setString(1, k);
+		          ResultSet rs = ps.executeQuery();  
+		          if (rs.next()){
+		          request.setAttribute("idss", rs.getInt("accid"));
+		          request.setAttribute("namess", rs.getString("accname"));
+		          request.setAttribute("passss", rs.getString("accpass"));
+		          request.setAttribute("roless", rs.getString("accrole"));
+		          request.setAttribute("mailss", rs.getString("accmail"));
+		          }else {
+		        	  response.sendRedirect("./Home.jsp");
+		          }
+		      } catch (Exception e) {
+		          System.out.println(e);
+		      }
+        
+%>
   	
     <nav>
       <div class="nav-bar">
@@ -82,7 +103,6 @@
             <li><a href="./Member.jsp">Member</a></li>
             <li style="display:<%=showprofile%>"><a href="./Course.jsp">Course</a></li>
             <li><a href="./Ebook.jsp">E-Book</a></li>
-            <li style="display:<%=showprofile%>"><a href="./Profile.jsp">Profile</a></li>
             <li style="display:<%=showlogin%>"><a href="./Logcss.jsp">Login</a></li>
             <li style="display:<%=showlogout%>"><a href="#"><form action="Logout" method="post"><input type="submit" value="logout" class="btnlogout"></form></a></li>
           </ul>
@@ -100,34 +120,43 @@
     <div class="section2">
       <div class="cntfrm">
         <div class="cardcontact">
-          <span class="title">Modify course</span>
-          <form class="form" id="form" action="Cedit.jsp" method="get">
-            	<input placeholder="‎" type="hidden" required name="courseid" value="<%=a.getCourseid()%>"/>	
-            	<div class="groupcontact">
-              <input placeholder="‎" type="text" required id="name" name="coursetitle" value="<%=a.getCoursetitle()%>"/>
-              <label for="name">Title</label>
+          <span class="title">Account profile</span>
+          <form class="form" id="form" action="Updateprofile" method="post">
+            <div class="groupcontact">
+            	<input placeholder="‎" type="text" required name="id" style="display: none" value="${idss}"/>
+              <input placeholder="‎" type="text" required id="name" name="name" value="${namess}"/>
+              <label for="name">Name</label>
             </div>
             <div class="groupcontact">
               <input
                 placeholder="‎"
                 type="text"
                 id="email"
-                name="coursetopic"
+                name="password"
                 required
-                value="<%=a.getCoursetopic()%>"
+                value="${passss}"
               />
-              <label for="email">Topic</label>
+              <label for="email">Password</label>
+            </div>
+            <div class="groupcontact">
+              <input
+                placeholder="‎"
+                type="hidden"
+                id="email"
+                name="role"
+                value="${roless}"
+              />
             </div>
             <div class="groupcontact">
               <input
                 placeholder="‎"
                 type="text"
                 id="email"
-                name="courselink"
+                name="mail"
                 required
-                value="<%=a.getCourselink()%>"
+                value="${mailss}"
               />
-              <label for="email">Link</label>
+              <label for="email">Email</label>
             </div>
             <input class="btnsbt" type="submit" value="Submit">
           </form>

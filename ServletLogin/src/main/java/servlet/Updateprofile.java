@@ -17,16 +17,14 @@ import javax.servlet.http.HttpSession;
 import DB.DBcon;
 
 
-@WebServlet("/Updateacc")
-public class Updateacc extends HttpServlet {
+@WebServlet("/Updateprofile")
+public class Updateprofile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	static Connection conn;
     static PreparedStatement ps;
     static ResultSet rs;
     static String sql;
-    
-    //doNut
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
@@ -47,7 +45,7 @@ public class Updateacc extends HttpServlet {
             ps.setString(4, email);
             ps.setString(5, id);
             ck = ps.executeUpdate();
-            response.sendRedirect("./Admin.jsp");
+            response.sendRedirect("./Home.jsp");
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -40,11 +40,15 @@
   <body>
   
   	<%
-  		String showlogout = "none";
+	String showlogout = "none";
+  	String showprofile = "none";
 		String Title = "";
+		String showlogin= "block";
 		if (session.getAttribute("Title")!=null){
 			Title = (String) session.getAttribute("Title");
 			showlogout = "block";
+			showlogin = "none";
+			showprofile = "block";
 		}
 		
 	%>
@@ -62,9 +66,11 @@
 
           <ul class="nav-links">
             <li><a href="./Home.jsp">Home</a></li>
-            <li><a href="./Member">Member</a></li>
+            <li><a href="./Member.jsp">Member</a></li>
+            <li style="display:<%=showprofile%>"><a href="./Course.jsp">Course</a></li>
             <li><a href="./Ebook.jsp">E-Book</a></li>
-            <li><a href="./Course.jsp">Courses</a></li>
+            <li style="display:<%=showprofile%>"><a href="./Profile.jsp">Profile</a></li>
+            <li style="display:<%=showlogin%>"><a href="./Logcss.jsp">Login</a></li>
             <li style="display:<%=showlogout%>"><a href="#"><form action="Logout" method="post"><input type="submit" value="logout" class="btnlogout"></form></a></li>
           </ul>
         </div>

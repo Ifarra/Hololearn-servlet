@@ -66,6 +66,7 @@
             <li><a href="./Home.jsp">Home</a></li>
             <li><a href="./Concact.jsp">Contact us</a></li>
             <li><a href="./Ebook.jsp">E-Book</a></li>
+            <li style="display:<%=showprofile%>"><a href="./Course.jsp">Course</a></li>
 			<li style="display:<%=showprofile%>"><a href="./Profile.jsp">Profile</a></li>
             <li style="display:<%=showlogin%>"><a href="./Logcss.jsp">Login</a></li>
             <li style="display:<%=showlogout%>"><a href="#"><form action="Logout" method="post"><input type="submit" value="logout" class="btnlogout"></form></a></li>

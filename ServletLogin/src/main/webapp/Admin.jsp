@@ -83,7 +83,7 @@
   </head>
   <body>
   
-  	<%@page import="controller.holoDAO,model.*,controller.FeedDAO,controller.CourseDAO,java.util.*"%>
+  	<%@page import="controller.holoDAO,model.*,controller.FeedDAO,controller.CourseDAO,controller.BookDAO,java.util.*"%>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         
         <%
@@ -97,9 +97,16 @@
 	  			response.sendRedirect("./Logcss.jsp");
 	  		}
 	  		
-	  		String showlogout = "none";
+
+			String showlogout = "none";
+	  	String showprofile = "none";
+			String Title = "";
+			String showlogin= "block";
 			if (session.getAttribute("Title")!=null){
+				Title = (String) session.getAttribute("Title");
 				showlogout = "block";
+				showlogin = "none";
+				showprofile = "block";
 			}
   		%>
   
@@ -114,6 +121,9 @@
             
             List<Course> clist = CourseDAO.getAllRecords();
     	    request.setAttribute("clist", clist);
+    	    
+    	    List<Book> blist = BookDAO.getAllRecords();
+    	    request.setAttribute("blist", blist);
         %>
   
     <nav>
@@ -129,10 +139,12 @@
 
           <ul class="nav-links">
             <li><a href="./Home.jsp">Home</a></li>
-            <li><a href="./Course.jsp">Courses</a></li>
+            <li><a href="./Contact.jsp">Contact us</a></li>
+            <li><a href="./Member.jsp">Member</a></li>
+            <li style="display:<%=showprofile%>"><a href="./Course.jsp">Course</a></li>
             <li><a href="./Ebook.jsp">E-Book</a></li>
-            <li><a href="./Logcss.jsp">Profile</a></li>
-            <!-- <li><a href="#">Contact us</a></li> -->
+            <li style="display:<%=showprofile%>"><a href="./Profile.jsp">Profile</a></li>
+            <li style="display:<%=showlogin%>"><a href="./Logcss.jsp">Login</a></li>
             <li style="display:<%=showlogout%>"><a href="#"><form action="Logout" method="post"><input type="submit" value="logout" class="btnlogout"></form></a></li>
           </ul>
         </div>
@@ -239,12 +251,12 @@
       
   <!--COURSE TABLE-->
   <div class="table-acc">
-  <h1>Available Courses</h1>
+  <h1>Courses Manager Table</h1>
   <a style="position: relative;
   padding-bottom: 5px;
     display: flex;
     align-items: center;
-    justify-content: center;" href="Addcourse.jsp?courseid=${b.getId()}"><button class="boomcock full-rounded"><span>Add</span><div class="border full-rounded"></div></button></a>
+    justify-content: center;" href="Addcourse.jsp?courseid=${b.getCourseid()}"><button class="boomcock full-rounded"><span>Add</span><div class="border full-rounded"></div></button></a>
   
   		
   
@@ -267,18 +279,61 @@
       <tbody>
       <c:forEach items="${clist}" var="b">
         <tr>
-          <td>${b.getId()}</td>
-          <td>${b.getTitle()}</td>
-          <td>${b.getTopic()}</td>
-          <td>${b.getLink()}</td>
-          <!--<td><a href="Courseedit.jsp?ids=${b.getId()}">Edit</a></td>
-          <td><a href="Deletecourse.jsp?accid=${b.getId()}">Delete</a></td>-->
-          <td><a href="Courseedit.jsp?id=${b.getId()}"><button class="boomcock full-rounded"><span>Edit</span><div class="border full-rounded"></div></button></a></td>
-          <td><a href="Deletecourse.jsp?courseid=${b.getId()}"><button class="boomcock full-rounded"><span>Delete</span><div class="border full-rounded"></div></button></a></td>
+          <td>${b.getCourseid()}</td>
+          <td>${b.getCoursetitle()}</td>
+          <td>${b.getCoursetopic()}</td>
+          <td>${b.getCourselink()}</td>
+          <!--<td><a href="Courseedit.jsp?ids=${b.getCourseid()}">Edit</a></td>
+          <td><a href="Deletecourse.jsp?accid=${b.getCourseid()}">Delete</a></td>-->
+          <td><a href="Courseedit.jsp?id=${b.getCourseid()}"><button class="boomcock full-rounded"><span>Edit</span><div class="border full-rounded"></div></button></a></td>
+          <td><a href="Deletecourse.jsp?courseid=${b.getCourseid()}"><button class="boomcock full-rounded"><span>Delete</span><div class="border full-rounded"></div></button></a></td>
         </tr>
         </c:forEach>
       </tbody>
     </table>
+  </div>
+  
+  <!--COURSE TABLE-->
+  <div class="table-acc">
+  <h1>Book Manager Table</h1>
+  <a style="position: relative;
+  padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;" href="Addbook.jsp?bookid=${b.getCourseid()}"><button class="boomcock full-rounded"><span>Add</span><div class="border full-rounded"></div></button></a>
+  
+  		
+  
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+      <c:forEach items="${blist}" var="b">
+        <tr>
+          <td>${b.getBookid()}</td>
+          <td>${b.getBooktitle()}</td>
+          <td>${b.getBookdesc()}</td>
+          <td>${b.getBookimg()}</td>
+          <td><a href="Bookedit.jsp?id=${b.getBookid()}"><button class="boomcock full-rounded"><span>Edit</span><div class="border full-rounded"></div></button></a></td>
+          <td><a href="Deletebook.jsp?bookid=${b.getBookid()}"><button class="boomcock full-rounded"><span>Delete</span><div class="border full-rounded"></div></button></a></td>
+        </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+  </div>
   </div>
   </div>
 </section>

@@ -23,9 +23,9 @@ public class CourseDAO {
         try {
             conn = new DBcon().setConnection();
             ps = conn.prepareStatement("INSERT INTO `hololearn`.`course` (`courseid`, `coursetitle`, `coursetopic`, `courselink`) VALUES (0,?,?,?);");
-            ps.setString(1, b.getTitle());
-            ps.setString(2, b.getTopic());
-            ps.setString(3, b.getLink());
+            ps.setString(1, b.getCoursetitle());
+            ps.setString(2, b.getCoursetopic());
+            ps.setString(3, b.getCourselink());
             status = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -38,10 +38,10 @@ public class CourseDAO {
         try {
             conn = new DBcon().setConnection();
             ps = conn.prepareStatement("update hololearn.course set coursetitle=?,coursetopic=?,courselink=? where courseid=?");
-            ps.setString(1, b.getTitle());
-            ps.setString(2, b.getTopic());
-            ps.setString(3, b.getLink());
-            ps.setInt(4, b.getId());
+            ps.setString(1, b.getCoursetitle());
+            ps.setString(2, b.getCoursetopic());
+            ps.setString(3, b.getCourselink());
+            ps.setInt(4, b.getCourseid());
             status = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -54,7 +54,7 @@ public class CourseDAO {
         try {
             conn = new DBcon().setConnection();
             ps = conn.prepareStatement("delete from hololearn.course where courseid=?");
-            ps.setInt(1, b.getId());
+            ps.setInt(1, b.getCourseid());
             status = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -72,10 +72,10 @@ public class CourseDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
             	Course u = new Course();
-                u.setId(rs.getInt("courseid"));
-                u.setTitle(rs.getString("coursetitle"));
-                u.setTopic(rs.getString("coursetopic"));
-                u.setLink(rs.getString("courselink"));
+                u.setCourseid(rs.getInt("courseid"));
+                u.setCoursetitle(rs.getString("coursetitle"));
+                u.setCoursetopic(rs.getString("coursetopic"));
+                u.setCourselink(rs.getString("courselink"));
                 list.add(u);
             }
         } catch (Exception e) {
@@ -93,10 +93,10 @@ public class CourseDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 u = new Course();
-                u.setId(rs.getInt("courseid"));
-                u.setTitle(rs.getString("coursetitle"));
-                u.setTopic(rs.getString("coursetopic"));
-                u.setLink(rs.getString("courselink"));
+                u.setCourseid(rs.getInt("courseid"));
+                u.setCoursetitle(rs.getString("coursetitle"));
+                u.setCoursetopic(rs.getString("coursetopic"));
+                u.setCourselink(rs.getString("courselink"));
             }
         } catch (Exception e) {
             System.out.println(e);

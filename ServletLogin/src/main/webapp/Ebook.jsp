@@ -38,6 +38,9 @@
     <link rel="manifest" href="img/site.webmanifest" />
   </head>
   <body>
+  
+  	<%@page import="controller.BookDAO,model.*,java.util.*"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   	
   	<%
   		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -46,10 +49,21 @@
   			response.sendRedirect("./Logcss.jsp");
   		}
   		
-  		String showlogout = "none";
-		if (session.getAttribute("Title")!=null){
-			showlogout = "block";
-		}
+		String showlogout = "none";
+	String showprofile = "none";
+	String Title = "";
+	String showlogin= "block";
+	if (session.getAttribute("Title")!=null){
+		Title = (String) session.getAttribute("Title");
+		showlogout = "block";
+		showlogin = "none";
+		showprofile = "block";
+	}
+  	%>
+  	
+  	<%
+	  	List<Book> list = BookDAO.getAllRecords();
+	    request.setAttribute("list", list);
   	%>
   	
     <nav>
@@ -65,9 +79,11 @@
 
           <ul class="nav-links">
             <li><a href="./Home.jsp">Home</a></li>
-            <li><a href="./Course.jsp">Courses</a></li>
             <li><a href="./Contact.jsp">Contact us</a></li>
-            <li><a href="./Profile.jsp">Profile</a></li>
+            <li><a href="./Member.jsp">Member</a></li>
+            <li style="display:<%=showprofile%>"><a href="./Course.jsp">Course</a></li>
+            <li style="display:<%=showprofile%>"><a href="./Profile.jsp">Profile</a></li>
+            <li style="display:<%=showlogin%>"><a href="./Logcss.jsp">Login</a></li>
             <li style="display:<%=showlogout%>"><a href="#"><form action="Logout" method="post"><input type="submit" value="logout" class="btnlogout"></form></a></li>
           </ul>
         </div>
@@ -84,230 +100,25 @@
     <div class="section2s">
       <p class="ebokp">Hololearn library</p>
       <div class="flex">
+      <c:forEach items="${list}" var="b">
         <div class="card-container">
-          <div class="card">
+          <div class="card" style="
+          background: url(${b.getBookimg()});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;">
             <div class="front-content">
-              <p>Hover me</p>
+              <p>${b.getBookid()}</p>
             </div>
             <div class="content">
-              <p class="heading">advance sales accounting</p>
+              <p class="heading">${b.getBooktitle()}</p>
               <p>
-                Containing a lot of useful advice for advance sales strategy and
-                becoming an expert as a decision maker, determine the
-                appropriate target market, used to competing with others, and
-                understanding different buyer habits and psychology to finally
-                win their interest.
+                ${b.getBookdesc()}
               </p>
             </div>
-          </div>
+          </div> 
         </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Agriculture</p>
-              <p>
-                Plants grow fast for some reason, and produce a lot of seeds is
-                one of the reason. most of human calories are came from annual
-                agriculture, and this book will explain to you how we can have
-                many benefits of natural, and create agricultural systems that
-                imitates nature in form and function.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Business from small</p>
-              <p>
-                Jay Levinson revolutionized marketing strategies for the small
-                business owner with his take-no-prisoners approach to finding
-                clients. hundreds of solid ideas that really work are ready to
-                become your inspiration to start your own business with small
-                scale.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Every count</p>
-              <p>
-                Reveals the most innovative and successful tools for increasing
-                income, building professional authority, creating and
-                maintaining a community of customers, engaging in creative
-                marketing, and maximizing sales. Apply the skills and strategies
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Capitalism rules</p>
-              <p>
-                Capitalism is often thought of as an economic system in which
-                private actors own and control property in accord with their
-                interests, and demand and supply freely set prices in markets in
-                a way that can serve the best interests of society.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Creative marketing</p>
-              <p>
-                Reveals the most innovative and successful tools for increasing
-                income, building professional authority, creating and
-                maintaining a community of customers, engaging in creative
-                marketing, and maximizing sales. Apply the skills and strategies
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Gym Advise</p>
-              <p>
-                an ultimate advicer for complete gym or fitness beginners or
-                slightly advanced gym visitors. The book si simple, not overly
-                complicated but the most importantly it contains VALUE! Value
-                that can help you to reach your ultimate goal and fullfil your
-                potential.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Humanist history</p>
-              <p>
-                Ask just about any humanist, and you will hear that the
-                humanities are in a crisis. Facing utilitarian approaches to
-                education, the corporatization of the university, plummeting
-                enrollments, budget cuts, and political critiques from right,
-                left, and center, humanists find themselves on the defensive.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Logistic service</p>
-              <p>
-                logistic services practice and explore the paper finishing into
-                books include exploration of the development. team building.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Nurseing</p>
-              <p>
-                perfect tool for you to use to select the appropriate diagnosis
-                to plan your patient’s care effectively. The 12th Edition
-                features the latest nursing diagnoses and updated interventions.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Building business</p>
-              <p>
-                marketing strategies for the small business owner with his
-                take-no-prisoners approach to finding clients. hundreds of solid
-                ideas that really work are ready to become your inspiration to
-                start your own business with small scale.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Sosmed strategist</p>
-              <p>
-                marketing strategies for the small business owner with his
-                take-no-prisoners approach to finding clients. hundreds of solid
-                ideas that really work are ready to become your inspiration to
-                start your own business with small scale.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Tech Plus</p>
-              <p>
-                Most advance technology chatalog for those who love to know more
-                ;)
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card-container">
-          <div class="card">
-            <div class="front-content">
-              <p>Hover me</p>
-            </div>
-            <div class="content">
-              <p class="heading">Dimensions</p>
-              <p>
-                Reveals the most innovative and successful tools for increasing
-                income, building professional authority, creating and
-                maintaining a community of customers, engaging in creative
-                marketing, and maximizing sales. Apply the skills and strategies
-              </p>
-            </div>
-          </div>
-        </div>
+        </c:forEach> 
       </div>
       <footer style="background: transparent">
         <div class="copyright">

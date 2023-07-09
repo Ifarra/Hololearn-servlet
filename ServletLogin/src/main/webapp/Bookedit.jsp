@@ -39,11 +39,11 @@
   </head>
   <body>
   
-  	<%@page import="controller.CourseDAO,model.Course"%>
+  	<%@page import="controller.BookDAO,model.Book"%>
 
         <%
             String id = request.getParameter("id");
-            Course a = CourseDAO.getRecordById(Integer.valueOf(id));
+            Book a = BookDAO.getRecordById(Integer.valueOf(id));
         %>
  
   
@@ -53,15 +53,15 @@
 		}
   	
 	String showlogout = "none";
-	String showprofile = "none";
-	String Title = "";
-	String showlogin= "block";
-	if (session.getAttribute("Title")!=null){
-		Title = (String) session.getAttribute("Title");
-		showlogout = "block";
-		showlogin = "none";
-		showprofile = "block";
-	}
+  	String showprofile = "none";
+		String Title = "";
+		String showlogin= "block";
+		if (session.getAttribute("Title")!=null){
+			Title = (String) session.getAttribute("Title");
+			showlogout = "block";
+			showlogin = "none";
+			showprofile = "block";
+		}
 		
 	%>
   	
@@ -101,10 +101,10 @@
       <div class="cntfrm">
         <div class="cardcontact">
           <span class="title">Modify course</span>
-          <form class="form" id="form" action="Cedit.jsp" method="get">
-            	<input placeholder="‎" type="hidden" required name="courseid" value="<%=a.getCourseid()%>"/>	
+          <form class="form" id="form" action="Bedit.jsp" method="get">
+            	<input placeholder="‎" type="hidden" required name="bookid" value="<%=a.getBookid()%>"/>	
             	<div class="groupcontact">
-              <input placeholder="‎" type="text" required id="name" name="coursetitle" value="<%=a.getCoursetitle()%>"/>
+              <input placeholder="‎" type="text" required id="name" name="booktitle" value="<%=a.getBooktitle()%>"/>
               <label for="name">Title</label>
             </div>
             <div class="groupcontact">
@@ -112,22 +112,22 @@
                 placeholder="‎"
                 type="text"
                 id="email"
-                name="coursetopic"
+                name="bookimg"
                 required
-                value="<%=a.getCoursetopic()%>"
+                value="<%=a.getBookimg()%>"
               />
-              <label for="email">Topic</label>
+              <label for="email">Image</label>
             </div>
             <div class="groupcontact">
               <input
                 placeholder="‎"
                 type="text"
                 id="email"
-                name="courselink"
+                name="bookdesc"
                 required
-                value="<%=a.getCourselink()%>"
+                value="<%=a.getBookdesc()%>"
               />
-              <label for="email">Link</label>
+              <label for="email">Description</label>
             </div>
             <input class="btnsbt" type="submit" value="Submit">
           </form>

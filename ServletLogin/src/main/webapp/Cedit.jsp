@@ -1,6 +1,8 @@
 <%@page import="controller.CourseDAO,java.sql.*,DB.DBcon"%>
-<!--<jsp:useBean id="b" class="model.Course"></jsp:useBean>
-<jsp:setProperty property="*" name="b"/> -->
+<jsp:useBean id="bgst" class="model.Course">
+	<jsp:setProperty name="bgst" property="*"></jsp:setProperty>
+</jsp:useBean>
+
 
 <%!
 static Connection conn;
@@ -11,6 +13,7 @@ static String sql;
 
 <%
 
+/*
 String id = request.getParameter("courseid");
 String title = request.getParameter("coursetitle");
 String link = request.getParameter("courselink");
@@ -27,6 +30,7 @@ try {
 } catch (Exception e) {
     System.out.println(e);
 }
-    //int cocurseid = CourseDAO.update(b);
+*/
+    int cocurseid = CourseDAO.update(bgst);
     response.sendRedirect("Admin.jsp");
 %>

@@ -98,10 +98,16 @@
   			response.sendRedirect("./Logcss.jsp");
   		}
   		
-  		String showlogout = "none";
-		if (session.getAttribute("Title")!=null){
-			showlogout = "block";
-		}
+		String showlogout = "none";
+	  	String showprofile = "none";
+			String Title = "";
+			String showlogin= "block";
+			if (session.getAttribute("Title")!=null){
+				Title = (String) session.getAttribute("Title");
+				showlogout = "block";
+				showlogin = "none";
+				showprofile = "block";
+			}
   	%>
   	
   	<%
@@ -125,9 +131,11 @@
 
           <ul class="nav-links">
             <li><a href="./Home.jsp">Home</a></li>
-            <li><a href="./Course.jsp">Courses</a></li>
             <li><a href="./Contact.jsp">Contact us</a></li>
-            <li><a href="./Profile.jsp">Profile</a></li>
+            <li><a href="./Member.jsp">Member</a></li>
+            <li><a href="./Ebook.jsp">E-Book</a></li>
+            <li style="display:<%=showprofile%>"><a href="./Profile.jsp">Profile</a></li>
+            <li style="display:<%=showlogin%>"><a href="./Logcss.jsp">Login</a></li>
             <li style="display:<%=showlogout%>"><a href="#"><form action="Logout" method="post"><input type="submit" value="logout" class="btnlogout"></form></a></li>
           </ul>
         </div>
@@ -172,10 +180,10 @@
       <tbody>
       <c:forEach items="${clist}" var="b">
         <tr>
-          <td>${b.getId()}</td>
-          <td>${b.getTitle()}</td>
-          <td>${b.getTopic()}</td>
-          <td><a href="${b.getLink()}"><button class="boomcock full-rounded">
+          <td>${b.getCourseid()}</td>
+          <td>${b.getCoursetitle()}</td>
+          <td>${b.getCoursetopic()}</td>
+          <td><a href="${b.getCourselink()}"><button class="boomcock full-rounded">
 <span>PLAY</span>
 <div class="border full-rounded"></div></button></a></td>
         </tr>

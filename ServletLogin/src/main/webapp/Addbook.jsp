@@ -39,13 +39,14 @@
   </head>
   <body>
   
-  	<%@page import="controller.CourseDAO,model.Course"%>
-
-        <%
-            String id = request.getParameter("id");
-            Course a = CourseDAO.getRecordById(Integer.valueOf(id));
-        %>
- 
+  	<%@page import="java.sql.*,DB.DBcon"%>
+  
+  	<%!
+  	static Connection conn;
+    static PreparedStatement ps;
+    static ResultSet rs;
+    static String sql;
+  	%>
   
   	<%
   	if(session.getAttribute("role")=="user"){
@@ -100,11 +101,11 @@
     <div class="section2">
       <div class="cntfrm">
         <div class="cardcontact">
-          <span class="title">Modify course</span>
-          <form class="form" id="form" action="Cedit.jsp" method="get">
-            	<input placeholder="‎" type="hidden" required name="courseid" value="<%=a.getCourseid()%>"/>	
-            	<div class="groupcontact">
-              <input placeholder="‎" type="text" required id="name" name="coursetitle" value="<%=a.getCoursetitle()%>"/>
+          <span class="title">Add Book</span>
+          <form class="form" id="form" action="Addbook" method="post">
+            <div class="groupcontact">
+
+              <input placeholder="‎" type="text" required id="name" name="title"/>
               <label for="name">Title</label>
             </div>
             <div class="groupcontact">
@@ -112,22 +113,20 @@
                 placeholder="‎"
                 type="text"
                 id="email"
-                name="coursetopic"
+                name="img"
                 required
-                value="<%=a.getCoursetopic()%>"
               />
-              <label for="email">Topic</label>
+              <label for="email">Image</label>
             </div>
             <div class="groupcontact">
-              <input
+              <textarea
                 placeholder="‎"
-                type="text"
-                id="email"
-                name="courselink"
+                id="comment"
+                name="desc"
+                rows="6"
                 required
-                value="<%=a.getCourselink()%>"
-              />
-              <label for="email">Link</label>
+              ></textarea>
+              <label for="comment">Description</label>
             </div>
             <input class="btnsbt" type="submit" value="Submit">
           </form>
